@@ -30,11 +30,12 @@ declare module 'panzoom' {
 		boundsPadding?: number;
 		zoomDoubleClickSpeed?: number;
 		zoomSpeed?: number;
+		initialX?: number,
+		initialY?: number,
+		initialZoom?: number,
 		pinchSpeed?: number;
 		beforeWheel?: (e: WheelEvent) => void;
 		beforeMouseDown?: (e: MouseEvent) => void;
-		beforeDoubleClick?: (e: MouseEvent) => void;
-		beforeSingleFingerTouch?: (e: TouchEvent) => void;
 		autocenter?: boolean;
 		onTouch?: (e: TouchEvent) => void;
 		onDoubleClick?: (e: Event) => void;
@@ -42,8 +43,10 @@ declare module 'panzoom' {
 		controller?: PanZoomController;
 		enableTextSelection?: boolean;
 		disableKeyboardInteraction?: boolean;
-		disableTransformStyle?: boolean;
 		transformOrigin?: TransformOrigin;
+		beforeDoubleClick?: (e: MouseEvent) => void;
+		beforeSingleFingerTouch?: (e: TouchEvent) => void;
+		disableTransformStyle?: boolean;
 		elementToTransform?: HTMLElement;
 	}
 

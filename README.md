@@ -20,7 +20,7 @@ npm install panzoom --save
 Or download from CDN:
 
 ``` html
-<script src='https://unpkg.com/panzoom@9.2.4/dist/panzoom.min.js'></script>
+<script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'></script>
 ```
 
 If you download from CDN the library will be available under `panzoom` global name.
@@ -42,7 +42,7 @@ panzoom(element)
 <body>
   <svg>
     <!-- this is the draggable root -->
-    <g id='scene'>
+    <g id='scene'> 
       <circle cx='10' cy='10' r='5' fill='pink'></circle>
     </g>
   </svg>
@@ -51,7 +51,7 @@ panzoom(element)
 
 ``` js
 // In the browser panzoom is already on the
-// window. If you are in common.js world, then
+// window. If you are in common.js world, then 
 // var panzoom = require('panzoom')
 
 // grab the DOM SVG element that you want to be draggable/zoomable:
@@ -61,7 +61,7 @@ var element = document.getElementById('scene')
 panzoom(element)
 ```
 
-If require a dynamic behavior (e.g. you want to make an `element` not
+If require a dynamic behavior (e.g. you want to make an `element` not 
 draggable anymore, or even completely delete an SVG element) make sure to call
 `dispose()` method:
 
@@ -294,13 +294,13 @@ If you want to quickly play with panzoom without using javascript, you can confi
 <!DOCTYPE html>
 <html>
 <head>
-  <script src='https://unpkg.com/panzoom@9.2.4/dist/panzoom.min.js'
+  <script src='https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js'
     query='#scene' name='pz'></script>
 </head>
 <body>
   <svg>
     <!-- this is the draggable root -->
-    <g id='scene'>
+    <g id='scene'> 
       <circle cx='10' cy='10' r='5' fill='pink'></circle>
     </g>
   </svg>
@@ -308,7 +308,7 @@ If you want to quickly play with panzoom without using javascript, you can confi
 </html>
 ```
 
-Most importantly, you can see `query` attribute that points to CSS selector. Once the element is found
+Most importantly, you can see `query` attribute that points to CSS selector. Once the element is found 
 panzoom is attached to this element. The controller will become available under `window.pz` name. And you
 can pass additional options to the panzoom via attributes prefixed with `pz-`.
 
@@ -318,11 +318,11 @@ Here is a demo: [Script based attributes](https://anvaka.github.io/panzoom/demo/
 
 You can adjust the double click zoom multiplier, by passing optional `zoomDoubleClickSpeed` argument.
 
-When double clicking, zoom is multiplied by `zoomDoubleClickSpeed`, which means that a value of 1 will disable double click zoom completely.
+When double clicking, zoom is multiplied by `zoomDoubleClickSpeed`, which means that a value of 1 will disable double click zoom completely. 
 
 ``` js
 panzoom(element, {
-  zoomDoubleClickSpeed: 1,
+  zoomDoubleClickSpeed: 1, 
 });
 ```
 
@@ -333,12 +333,11 @@ You can set the initial position and zoom, by chaining the `zoomAbs` function wi
 ``` js
 panzoom(element, {
   maxZoom: 1,
-  minZoom: 0.1
-}).zoomAbs(
-  300, // initial x position
-  500, // initial y position
-  0.1  // initial zoom
-);
+  minZoom: 0.1,
+  initialX: 300,
+  initialY: 500,
+  initialZoom: 0.5
+});
 ```
 
 ## Handling touch events
@@ -359,7 +358,7 @@ panzoom(element, {
 ```
 
 Note: if you don't `preventDefault` yourself - make sure you test the page behavior on iOS devices.
-Sometimes this may cause page to [bounce undesirably](https://stackoverflow.com/questions/23862204/disable-ios-safari-elastic-scrolling).
+Sometimes this may cause page to [bounce undesirably](https://stackoverflow.com/questions/23862204/disable-ios-safari-elastic-scrolling). 
 
 
 ## Handling double click events
@@ -381,9 +380,8 @@ panzoom(element, {
 
 ## Bounds on Panzoom
 
-By default panzoom will not prevent Image from Panning out of the Container. `bounds` (boolean) and
+By default panzoom will not prevent Image from Panning out of the Container. `bounds` (boolean) and 
 `boundsPadding` (number)  can be defined so that it doesn't fall out. Default value for `boundsPadding` is `0.05` .
-
 
 ``` js
 panzoom(element, {
@@ -392,12 +390,18 @@ panzoom(element, {
 });
 ```
 
-## Triggering Pan
+## Triggering Pan 
 
-To Pan the object using Javascript use `moveTo(<number>,<number>)` function . It expects x, y value to where  to move.
+To Pan the object using Javascript use `moveTo(<number>,<number>)` function. It expects x, y value to where to move.
 
 ``` js
 panzoom.moveTo(0, 0);
+```
+
+To pan in a smooth way use `smoothMoveTo(<number>,<number>)`:
+
+``` js
+panzoom.smoothMoveTo(0, 0);
 ```
 
 # license

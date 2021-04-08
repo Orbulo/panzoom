@@ -848,7 +848,7 @@ function createPanZoom(domElement, options) {
 		return { x: offsetX, y: offsetY };
 	}
 
-	function smoothZoom(clientX, clientY, scaleMultiplier) {
+	function smoothZoom(clientX, clientY, scaleMultiplier, skipEventTrigger = false) {
 		const fromValue = transform.scale;
 		const from = { scale: fromValue };
 		const to = { scale: scaleMultiplier * fromValue };
@@ -858,13 +858,13 @@ function createPanZoom(domElement, options) {
 
 		zoomToAnimation = animate(from, to, {
 			step(v) {
-				zoomAbs(clientX, clientY, v.scale);
+				zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
 			},
 			done: triggerZoomEnd,
 		});
 	}
 
-	function smoothZoomAbs(clientX, clientY, toScaleValue) {
+	function smoothZoomAbs(clientX, clientY, toScaleValue, skipEventTrigger = false) {
 		const fromValue = transform.scale;
 		const from = { scale: fromValue };
 		const to = { scale: toScaleValue };
@@ -874,7 +874,7 @@ function createPanZoom(domElement, options) {
 
 		zoomToAnimation = animate(from, to, {
 			step(v) {
-				zoomAbs(clientX, clientY, v.scale);
+				zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
 			},
 		});
 	}

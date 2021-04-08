@@ -283,18 +283,20 @@ function createPanZoom(domElement, options) {
     };
   }
 
-  function moveTo(x, y) {
+  function moveTo(x, y, skipEventTrigger = false) {
     transform.x = x;
     transform.y = y;
 
     keepTransformInsideBounds();
 
-    triggerEvent('pan');
+    if (!skipEventTrigger) {
+      triggerEvent('pan');
+    }
     makeDirty();
   }
 
-  function moveBy(dx, dy) {
-    moveTo(transform.x + dx, transform.y + dy);
+  function moveBy(dx, dy, skipEventTrigger = false) {
+    moveTo(transform.x + dx, transform.y + dy, skipEventTrigger);
   }
 
   function keepTransformInsideBounds() {
@@ -441,13 +443,13 @@ function createPanZoom(domElement, options) {
     internalMoveBy(dx, dy, true);
   }
 
-  function smoothMoveTo(x, y){
-    internalMoveBy(x - transform.x, y - transform.y, true)
+  function smoothMoveTo(x, y, skipEventTrigger = false) {
+    internalMoveBy(x - transform.x, y - transform.y, true, skipEventTrigger)
   }
 
-  function internalMoveBy(dx, dy, smooth) {
+  function internalMoveBy(dx, dy, smooth, skipEventTrigger = false) {
     if (!smooth) {
-      return moveBy(dx, dy);
+      return moveBy(dx, dy, skipEventTrigger);
     }
 
     if (moveByAnimation) moveByAnimation.cancel();
@@ -459,7 +461,7 @@ function createPanZoom(domElement, options) {
 
     moveByAnimation = animate(from, to, {
       step: function (v) {
-        moveBy(v.x - lastX, v.y - lastY);
+        moveBy(v.x - lastX, v.y - lastY, skipEventTrigger);
 
         lastX = v.x;
         lastY = v.y;

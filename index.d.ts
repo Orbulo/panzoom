@@ -54,7 +54,7 @@ declare module "panzoom" {
     dispose: () => void;
     moveBy: (dx: number, dy: number, smooth: boolean) => void;
     moveTo: (x: number, y: number, skipEventTrigger?: boolean) => void;
-    smoothMoveTo: (x: number, y: number, skipEventTrigger?: boolean) => void;
+    smoothMoveTo: (x: number, y: number, skipEventTrigger?: boolean, duration: number) => void;
     centerOn: (ui: any) => void;
     zoomTo: (
       clientX: number,
@@ -72,13 +72,15 @@ declare module "panzoom" {
       clientX: number,
       clientY: number,
       scaleMultiplier: number,
-      skipEventTrigger?: boolean
+      skipEventTrigger?: boolean,
+			duration: number
     ) => void;
     smoothZoomAbs: (
       clientX: number,
       clientY: number,
       toScaleValue: number,
       skipEventTrigger?: boolean
+			duration: number,
     ) => void;
     getTransform: () => Transform;
     showRectangle: (rect: ClientRect) => void;

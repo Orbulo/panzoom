@@ -467,11 +467,23 @@ function createPanZoom(domElement, options) {
     internalMoveBy(dx, dy, true);
   }
 
-  function smoothMoveTo(x, y, skipEventTrigger = false) {
-    internalMoveBy(x - transform.x, y - transform.y, true, skipEventTrigger);
+  function smoothMoveTo(x, y, skipEventTrigger = false, duration = 100) {
+    internalMoveBy(
+      x - transform.x,
+      y - transform.y,
+      true,
+      skipEventTrigger,
+      duration
+    );
   }
 
-  function internalMoveBy(dx, dy, smooth, skipEventTrigger = false) {
+  function internalMoveBy(
+    dx,
+    dy,
+    smooth,
+    skipEventTrigger = false,
+    duration = 100
+  ) {
     if (!smooth) {
       return moveBy(dx, dy, skipEventTrigger);
     }
@@ -484,6 +496,7 @@ function createPanZoom(domElement, options) {
     let lastY = 0;
 
     moveByAnimation = animate(from, to, {
+      duration,
       step(v) {
         moveBy(v.x - lastX, v.y - lastY, skipEventTrigger);
 
@@ -857,7 +870,8 @@ function createPanZoom(domElement, options) {
     clientX,
     clientY,
     scaleMultiplier,
-    skipEventTrigger = false
+    skipEventTrigger = false,
+    duration = 100
   ) {
     const fromValue = transform.scale;
     const from = { scale: fromValue };
@@ -867,6 +881,7 @@ function createPanZoom(domElement, options) {
     cancelZoomAnimation();
 
     zoomToAnimation = animate(from, to, {
+      duration,
       step(v) {
         zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
       },
@@ -878,7 +893,8 @@ function createPanZoom(domElement, options) {
     clientX,
     clientY,
     toScaleValue,
-    skipEventTrigger = false
+    skipEventTrigger = false,
+    duration = 100
   ) {
     const fromValue = transform.scale;
     const from = { scale: fromValue };
@@ -888,6 +904,7 @@ function createPanZoom(domElement, options) {
     cancelZoomAnimation();
 
     zoomToAnimation = animate(from, to, {
+      duration,
       step(v) {
         zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
       },

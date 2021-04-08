@@ -143,6 +143,7 @@ function createPanZoom(domElement, options) {
     moveBy: internalMoveBy,
     moveTo,
     smoothMoveTo,
+    smoothMoveZoomAbs,
     centerOn,
     zoomTo: publicZoomTo,
     zoomAbs,
@@ -906,6 +907,39 @@ function createPanZoom(domElement, options) {
     zoomToAnimation = animate(from, to, {
       duration,
       step(v) {
+        zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
+      },
+    });
+  }
+
+  function smoothMoveZoomAbs(
+    clientX,
+    clientY,
+    toScaleValue,
+    skipEventTrigger = false,
+    duration = 100
+  ) {
+    const fromValue = transform.scale;
+    const from = { x: 0, y: 0, scale: fromValue };
+
+    const dx = clientX - transform.x;
+    const dy = clientY - transform.y;
+
+    const to = { x: dx, y: dy, scale: toScaleValue };
+    let lastX = 0;
+    let lastY = 0;
+
+    smoothScroll.cancel();
+    cancelZoomAnimation();
+
+    zoomToAnimation = animate(from, to, {
+      duration,
+      step(v) {
+        moveBy(v.x - lastX, v.y - lastY, skipEventTrigger);
+
+        lastX = v.x;
+        lastY = v.y;
+
         zoomAbs(clientX, clientY, v.scale, skipEventTrigger);
       },
     });

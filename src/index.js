@@ -319,7 +319,7 @@ function createPanZoom(domElement, options) {
   }
 
   function moveBy(dx, dy, skipEventTrigger) {
-    moveTo(transform.x + dx, transform.y + dy);
+    moveTo(transform.x + dx, transform.y + dy, skipEventTrigger);
   }
 
   function keepTransformInsideBounds() {
